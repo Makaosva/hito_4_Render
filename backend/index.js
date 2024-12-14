@@ -2,7 +2,7 @@
 //para el backend
 require("dotenv").config(); // Cargar variables de entorno
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL); // Mostrar valor en consola
+console.log("PG_STRING_URL:", process.env.PG_STRING_URL); // Mostrar valor en consola
 
 /* para habilitar los cors */
 const cors = require("cors");

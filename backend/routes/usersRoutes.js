@@ -130,4 +130,4 @@ router.put(
 //para eliminar item DELETE  localhost:3000/eliminarItem/7 con token
 router.delete("/eliminarItem/:item_id", authMiddleware, eliminarItem);
 
-export default router;
+module.exports = router;
