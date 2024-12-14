@@ -117,6 +117,7 @@ const UsuariosProvider = ({ children }) => {
         setMisFavoritos,
         logout,
         setSortOption,
+        fetchPublicaciones,
       }}
     >
       {children}
