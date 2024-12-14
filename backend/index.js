@@ -10,11 +10,10 @@ export const app = express(); // Exportamos app para los test
 import usersRoutes from "./routes/usersRoutes.js";
 import path from "path";
 
-//app.use(express.static(path.join(__dirname, "public")));
-
 // Configuración de CORS para permitir solicitudes con credenciales
 const corsOptions = {
-  origin: "http://localhost:5173", // El origen de tu frontend
+  origin: "https://hito-4-render.onrender.com/",
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
   exposedHeaders: ["Authorization"], // Permitir enviar cookies o encabezados de autorización
 };
@@ -24,17 +23,27 @@ app.use(express.json());
 //app.use("/publicaciones", usersRoutes);
 app.use(usersRoutes);
 
-app.get("/api", (req, res) => {
-  res.json({ message: "¡Hola desde el backend!" });
-});
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+app.use(express.static(path.join(__dirname, "public")));
 
 //para ocupar .env
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server listening on port http://localhost:${PORT}`);
+});
+
+app.get("/api", usersRoutes);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/api", (req, res) => {
+  res.json({ message: "¡Hola desde el backend!" });
+});
+
+app.use(express.static("public")); // Servir archivos estáticos desde 'public'
+
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html"); // Redirigir todas las rutas al frontend
 });
