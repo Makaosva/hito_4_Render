@@ -1,7 +1,6 @@
 // PARA LA BASE DE DATOS funcione en el pc backend
-import "dotenv/config";
-import pkg from "pg";
-const { Pool } = pkg;
+require("dotenv").config();
+const { Pool } = require("pg");
 //const { Pool } = require("pg");
 
 const connectionString = process.env.PG_STRING_URL;
@@ -15,7 +14,7 @@ const connectionString = process.env.PG_STRING_URL;
 //   allowExitOnIdle: true,
 // });
 
-export const pool = connectionString
+const pool = connectionString
   ? new Pool({
       connectionString,
       ssl: {
@@ -33,3 +32,5 @@ try {
 } catch (error) {
   console.log(error);
 }
+
+module.exports = pool;

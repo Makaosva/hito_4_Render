@@ -1,14 +1,15 @@
 // HITO 4 BACKEND PROYECTO FINAL
 //para el backend
-import "dotenv/config";
+require("dotenv").config(); // Cargar variables de entorno
+
+console.log("DATABASE_URL:", process.env.DATABASE_URL); // Mostrar valor en consola
 
 /* para habilitar los cors */
-import cors from "cors";
+const cors = require("cors");
 // Importar express y se ejecuta para obtener un enrutador (app)
-import express from "express";
-export const app = express(); // Exportamos app para los test
-import usersRoutes from "./routes/usersRoutes.js";
-import path from "path";
+const express = require("express");
+const app = express();
+const usersRoutes = require("./routes/usersRoutes");
 
 // Configuración de CORS para permitir solicitudes con credenciales
 const corsOptions = {
@@ -23,6 +24,7 @@ app.use(express.json());
 //app.use("/publicaciones", usersRoutes);
 app.use(usersRoutes);
 
+const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
 //para ocupar .env
@@ -47,3 +49,5 @@ app.use(express.static("public")); // Servir archivos estáticos desde 'public'
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public/index.html"); // Redirigir todas las rutas al frontend
 });
+
+module.exports = app; // Exportamos app para los test
