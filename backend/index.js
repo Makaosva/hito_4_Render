@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); // se permite cors para todas las rutas
 /* parsear el cuerpo de la consulta */
 app.use(express.json());
-app.use("/publicaciones", usersRoutes);
+//app.use("/publicaciones", usersRoutes);
 app.use(usersRoutes);
 
 const path = require("path");
