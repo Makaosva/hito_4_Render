@@ -23,7 +23,7 @@ const Carrito = () => {
         }
 
         const response = await fetch(
-          "http://localhost:3000/obtenerBoletaItems",
+          `${import.meta.env.VITE_BASE_URL}/obtenerBoletaItems`,
           {
             method: "GET",
             headers: {
@@ -55,7 +55,7 @@ const Carrito = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:3000/actualizarCantidad/${item_id}`,
+        `${import.meta.env.VITE_BASE_URL}/actualizarCantidad/${item_id}`,
         {
           method: "PUT",
           headers: {
@@ -87,7 +87,7 @@ const Carrito = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3000/eliminarItem/${item_id}`,
+        `${import.meta.env.VITE_BASE_URL}/eliminarItem/${item_id}`,
         {
           method: "DELETE",
           headers: {
