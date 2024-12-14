@@ -1,28 +1,12 @@
 // HITO 4
 // rutas para el backend
-const express = require("express");
-const router = express.Router();
-const {
-  registrarUsuario,
-  verificarCredenciales,
-  getUsuarios,
-  crearPublicacion,
-  obtenerPublicaciones,
-  obtenerEmailPorNombre,
-  obtenerMisPublicaciones,
-  agregarFavorito,
-  obtenerMisFavoritos,
-  actualizarPerfil,
-  buscarPublicaciones,
-  ordenarPublicaciones,
-  agregarItems,
-  obtenerBoletaItems,
-  actualizarCantidadItem,
-  eliminarItem,
-} = require("../controllers/usersControllers"); //para las funciones
-const { authMiddleware } = require("../middlewares/authMiddleware");
-const jwt = require("jsonwebtoken"); //para el token
-const pool = require("../config/config");
+import { Router } from "express";
+const router = Router();
+import { userControllers } from "../controllers/usersControllers.js";
+
+//para las funciones
+import { authMiddleware } from "../middlewares/authMiddleware.js";
+import jwt from "jsonwebtoken"; //para el token
 
 // ruta para crear usuarios
 // localhost:3000/usuarios, se agrega los datos de las 3 columnas de la tabla en body
@@ -30,7 +14,7 @@ const pool = require("../config/config");
 router.post("/usuarios", async (req, res) => {
   try {
     const usuario = req.body; // captura los datos
-    await registrarUsuario(usuario); // registra el usuario
+    await userControllers.registrarUsuario(usuario); // registra el usuario
     res.send("Usuario registrado con éxito"); // respuesta con mensaje
   } catch (error) {
     console.error("Error al registrar usuario:", error);
@@ -44,7 +28,7 @@ router.post("/usuarios", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body; // captura el email y contraseña
-    await verificarCredenciales(email, password); // verifica las credenciales
+    await userControllers.verificarCredenciales(email, password); // verifica las credenciales
     //FIRMA DE TOKEN
     const token = jwt.sign({ email }, "mi_clave", { expiresIn: "20d" }); // genera y firma un token JWT con duracion, con payload del email
     res.json({ token }); // envia el token en un objeto JSON
@@ -62,7 +46,7 @@ router.get("/usuarios", authMiddleware, async (req, res) => {
   try {
     const { email } = req.user; // obtener email del token verificado por el middleware
     console.log("Email del usuario:", email); // Mostrar el email en la consola
-    const usuario = await getUsuarios(email);
+    const usuario = await userControllers.getUsuarios(email);
     res.status(200).json(usuario); // enviar datos del usuario
   } catch (error) {
     res
@@ -73,7 +57,7 @@ router.get("/usuarios", authMiddleware, async (req, res) => {
 
 // ruta para actualizar perfil
 // PUT http://localhost:3000/usuarios  pasar el token en autorizacion y en body lo que se cambiará con email
-router.put("/usuarios", authMiddleware, actualizarPerfil);
+router.put("/usuarios", authMiddleware, userControllers.actualizarPerfil);
 
 //ruta para crear nuevas publicaciones en la opcion dentro del menu
 // http://localhost:3000/publicaciones en POST escribir en body los 4 campos
@@ -81,44 +65,72 @@ router.put("/usuarios", authMiddleware, actualizarPerfil);
 router.post("/publicaciones", authMiddleware, async (req, res) => {
   try {
     // Llamamos a la función crearPublicacion que gestiona la lógica de crear una publicación
-    await crearPublicacion(req, res); // Delegar la lógica al controlador
+    await userControllers.crearPublicacion(req, res); // Delegar la lógica al controlador
   } catch (error) {
-    res.status(500).send({ message: "Error al crear la publicación en la ruta", error });
+    res
+      .status(500)
+      .send({ message: "Error al crear la publicación en la ruta", error });
   }
 });
 
 // Ruta para obtener las publicaciones, debe ser publica, GET /publicaciones
-router.get("/publicaciones", obtenerPublicaciones);
+router.get("/publicaciones", userControllers.obtenerPublicaciones);
 
 // Ruta para obtener el email del publicador por su nombre  ejemplo GET /usuarios/email/roroo se obtiene el email, publico
-router.get('/usuarios/email/:nombrePublicador', obtenerEmailPorNombre);
+router.get(
+  "/usuarios/email/:nombrePublicador",
+  userControllers.obtenerEmailPorNombre
+);
 
 // Ruta para obtener las publicaciones de un usuario autenticado GET /publicaciones/mis-publicaciones con token
-router.get('/publicaciones/mis-publicaciones', authMiddleware, obtenerMisPublicaciones);
+router.get(
+  "/publicaciones/mis-publicaciones",
+  authMiddleware,
+  userControllers.obtenerMisPublicaciones
+);
 
 // Ruta para agregar favorito POST /favoritos/32  con token
-router.post("/favoritos/:publicacion_id", authMiddleware, agregarFavorito);
+router.post(
+  "/favoritos/:publicacion_id",
+  authMiddleware,
+  userControllers.agregarFavorito
+);
 
 // Ruta para obtener los favoritos de un usuario  GET /favoritos con token
-router.get('/favoritos', authMiddleware, obtenerMisFavoritos);
+router.get("/favoritos", authMiddleware, userControllers.obtenerMisFavoritos);
 
 // Ruta para buscar publicaciones por título, es publico   GET ejemplo localhost:3000/publicaciones/buscar?titulo=kotlin
-router.get('/publicaciones/buscar', buscarPublicaciones);
+router.get("/publicaciones/buscar", userControllers.buscarPublicaciones);
 
 //para ordenar publicaciones, es publico GET   localhost:3000/publicaciones/ordenar?sort=name-asc
-router.get("/publicaciones/ordenar", ordenarPublicaciones);
+router.get("/publicaciones/ordenar", userControllers.ordenarPublicaciones);
 
 // Ruta para agregar al carrito, ahora usando req.params para obtener publicacion_id   POST localhost:3000/boletas/agregar/29  con token
-router.post("/boletas/agregar/:publicacion_id", authMiddleware, agregarItems);
+router.post(
+  "/boletas/agregar/:publicacion_id",
+  authMiddleware,
+  userControllers.agregarItems
+);
 
 //para obtener detalle de boleta con items GET localhost:3000/obtenerBoletaItems  con token
-router.get("/obtenerBoletaItems", authMiddleware, obtenerBoletaItems);
+router.get(
+  "/obtenerBoletaItems",
+  authMiddleware,
+  userControllers.obtenerBoletaItems
+);
 
 //para aumentar o disminuir la cantidad por item   PUT localhost:3000/actualizarCantidad/7 EN BODY "accion": "incrementar" O "disminuir" con token
-router.put("/actualizarCantidad/:item_id",  authMiddleware, actualizarCantidadItem );
+router.put(
+  "/actualizarCantidad/:item_id",
+  authMiddleware,
+  userControllers.actualizarCantidadItem
+);
 
 //para eliminar item DELETE  localhost:3000/eliminarItem/7 con token
-router.delete("/eliminarItem/:item_id", authMiddleware,eliminarItem);
+router.delete(
+  "/eliminarItem/:item_id",
+  authMiddleware,
+  userControllers.eliminarItem
+);
 
-
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
 // las funciones HITO 4
-const pool = require("../config/config");
-const bcrypt = require("bcryptjs"); /// se agrega para encriptado de contraseñas
-const jwt = require("jsonwebtoken");
+import { pool } from "../database/connection.js";
+import bcrypt from "bcryptjs"; /// se agrega para encriptado de contraseñas
+import jwt from "jsonwebtoken";
 
 //conectar formulario de frontend a la API de backend
 // registrar usuario en la base de datos del backend
@@ -545,7 +545,7 @@ const eliminarItem = async (req, res) => {
   }
 };
 
-module.exports = {
+export const userControllers = {
   registrarUsuario,
   verificarCredenciales,
   getUsuarios,
