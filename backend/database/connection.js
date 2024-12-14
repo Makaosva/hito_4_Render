@@ -27,7 +27,7 @@ const pool = connectionString
     });
 
 try {
-  await pool.query("SELECT NOW()");
+  pool.query("SELECT NOW()");
   console.log("Database connected");
 } catch (error) {
   console.log(error);
