@@ -10,7 +10,7 @@ export const app = express(); // Exportamos app para los test
 import usersRoutes from "./routes/usersRoutes.js";
 import path from "path";
 
-app.use(express.static(path.join(__dirname, "public")));
+//app.use(express.static(path.join(__dirname, "public")));
 
 // Configuración de CORS para permitir solicitudes con credenciales
 const corsOptions = {
