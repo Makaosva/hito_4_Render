@@ -7,12 +7,14 @@ import jwt from "jsonwebtoken";
 // registrar usuario en la base de datos del backend
 const registrarUsuario = async (usuario) => {
   let { nombre, password, email } = usuario;
+  console.log("usuario-->", usuario);
+
   // Encriptar la contraseña
   const passwordEncriptada = bcrypt.hashSync(password); // para encriptar las contraseñas
   password = passwordEncriptada;
   const values = [nombre, passwordEncriptada, email];
   const consulta =
-    "INSERT INTO usuarios (nombre,password, email) VALUES ($1, $2, $3)"; // se inserta los datos en la tabla usuarios
+    "INSERT INTO usuarios (nombre, password, email) VALUES ($1, $2, $3)"; // se inserta los datos en la tabla usuarios
   await pool.query(consulta, values);
 };
 
