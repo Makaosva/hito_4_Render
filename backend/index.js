@@ -7,7 +7,7 @@ const cors = require("cors");
 // Importar express y se ejecuta para obtener un enrutador (app)
 const express = require("express");
 const app = express();
-const usersRoutes = require("../routes/usersRoutes");
+const usersRoutes = require("./routes/usersRoutes");
 
 // Configuración de CORS para permitir solicitudes con credenciales
 const corsOptions = {
@@ -18,7 +18,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); // se permite cors para todas las rutas
 /* parsear el cuerpo de la consulta */
 app.use(express.json());
-app.use("/publicaciones", usersRoutes);
+//app.use("/publicaciones", usersRoutes);
 app.use(usersRoutes);
 
 //para ocupar .env
