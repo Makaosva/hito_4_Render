@@ -9,12 +9,10 @@ const pool = new Pool({
   database: process.env.PGDATABASE || "market",
   port: process.env.PGPORT || 5432,
   allowExitOnIdle: true,
-
-  connectionString: process.env.DATABASE_URL,
-  ssl:
-    process.env.NODE_ENV === "production"
-      ? { rejectUnauthorized: false }
-      : false,
+});
+// Manejo de errores de la base de datos
+pool.on("error", (err) => {
+  console.error("Error en la conexión a la base de datos:", err);
 });
 
 module.exports = pool;
