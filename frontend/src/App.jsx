@@ -17,7 +17,7 @@ import RutaPrivada from "./components/RutaPrivada";
 import MisFavoritos from "./views/MisFavoritos";
 
 function App() {
-  console.log("dir-->", import.meta.env.VITE_API_URL);
+  
   return (
     <UsuariosProvider>
       <NavbarMarket />
