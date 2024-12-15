@@ -11,7 +11,7 @@ const usersRoutes = require("./routes/usersRoutes");
 
 // Configuración de CORS para permitir solicitudes con credenciales
 const corsOptions = {
-  origin: "http://localhost:5173",  // El origen de tu frontend
+  origin: "https://hito-4-render-1.onrender.com",  // El origen de tu frontend
   credentials: true,
   exposedHeaders:["Authorization"]// Permitir enviar cookies o encabezados de autorización
 };
