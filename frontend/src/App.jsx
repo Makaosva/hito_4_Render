@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router,Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import InicioSesion from "./views/InicioSesion";
 import Perfil from "./views/Perfil";
 import NavbarMarket from "./components/NavbarMarket";
@@ -17,6 +17,7 @@ import RutaPrivada from "./components/RutaPrivada";
 import MisFavoritos from "./views/MisFavoritos";
 
 function App() {
+  console.log("dir-->", import.meta.env.VITE_API_URL);
   return (
     <UsuariosProvider>
       <NavbarMarket />
