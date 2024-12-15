@@ -9,7 +9,7 @@ const express = require("express");
 const app = express();
 const usersRoutes = require("./routes/usersRoutes");
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL); // Mostrar valor en consola
+//console.log("DATABASE_URL:", process.env.DATABASE_URL); // Mostrar valor en consola
 
 // Configuración de CORS para permitir solicitudes con credenciales
 const corsOptions = {
@@ -23,12 +23,12 @@ app.use(express.json());
 //app.use("/publicaciones", usersRoutes);
 app.use(usersRoutes);
 
-const path = require("path");
-app.use(express.static(path.join(__dirname, "public")));
+// const path = require("path");
+// app.use(express.static(path.join(__dirname, "public")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "public", "index.html"));
+// });
 
 app.get("/api", (req, res) => {
   res.json({ message: "¡Hola desde el backend!" });
