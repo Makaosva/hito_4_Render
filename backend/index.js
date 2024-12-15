@@ -23,12 +23,12 @@ app.use(express.json());
 //app.use("/publicaciones", usersRoutes);
 app.use(usersRoutes);
 
-// const path = require("path");
-// app.use(express.static(path.join(__dirname, "public")));
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "public", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+});
 
 app.get("/api", (req, res) => {
   res.json({ message: "¡Hola desde el backend!" });
