@@ -9,7 +9,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": "http://localhost:3000", // Proxy para evitar problemas de CORS
+      // "/api": "http://localhost:3000", // Proxy para evitar problemas de CORS
+      "/api": `${import.meta.env.VITE_API_URL}`,
     },
   },
 });
