@@ -23,7 +23,7 @@ const Carrito = () => {
         }
 
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/obtenerBoletaItems`,
+          `${import.meta.env.VITE_API_URL}/obtenerBoletaItems`,
           {
             method: "GET",
             headers: {
@@ -55,7 +55,7 @@ const Carrito = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/actualizarCantidad/${item_id}`,
+        `${import.meta.env.VITE_API_URL}/actualizarCantidad/${item_id}`,
         {
           method: "PUT",
           headers: {
@@ -87,7 +87,7 @@ const Carrito = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/eliminarItem/${item_id}`,
+        `${import.meta.env.VITE_API_URL}/eliminarItem/${item_id}`,
         {
           method: "DELETE",
           headers: {

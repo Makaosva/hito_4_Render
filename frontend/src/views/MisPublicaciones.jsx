@@ -30,7 +30,7 @@ const MisPublicaciones = () => {
 
         // Llamada a la API para obtener las publicaciones
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/publicaciones/mis-publicaciones`,
+          `${import.meta.env.VITE_API_URL}/publicaciones/mis-publicaciones`,
           config
         );
         setMisPublicaciones(response.data); // Actualizar el estado con las publicaciones

@@ -20,7 +20,7 @@ const DetallePublicacion = () => {
     const obtenerEmailPublicador = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/usuarios/email/${nombrePublicador}`
+          `${import.meta.env.VITE_API_URL}/usuarios/email/${nombrePublicador}`
         );
         setEmailPublicador(response.data.email); // Guardar el email en el estado
         setCargando(false);

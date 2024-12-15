@@ -37,7 +37,7 @@ const FormularioUsuario = () => {
 
     try {
       // enviar registro al backend en tabla usuarios, POST
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/usuarios`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/usuarios`, {
         nombre,
         email,
         password,
