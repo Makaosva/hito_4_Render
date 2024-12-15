@@ -1,21 +1,18 @@
 // las funciones HITO 4
-import pool from "../database/connection.js";
-
-import bcrypt from "bcryptjs"; /// se agrega para encriptado de contraseñas
-//const jwt = require("jsonwebtoken");
+const pool = require("../config/config");
+const bcrypt = require("bcryptjs"); /// se agrega para encriptado de contraseñas
+const jwt = require("jsonwebtoken");
 
 //conectar formulario de frontend a la API de backend
 // registrar usuario en la base de datos del backend
 const registrarUsuario = async (usuario) => {
   let { nombre, password, email } = usuario;
-  console.log("usuario-->", usuario);
-
   // Encriptar la contraseña
   const passwordEncriptada = bcrypt.hashSync(password); // para encriptar las contraseñas
   password = passwordEncriptada;
   const values = [nombre, passwordEncriptada, email];
   const consulta =
-    "INSERT INTO usuarios (nombre, password, email) VALUES ($1, $2, $3)"; // se inserta los datos en la tabla usuarios
+    "INSERT INTO usuarios (nombre,password, email) VALUES ($1, $2, $3)"; // se inserta los datos en la tabla usuarios
   await pool.query(consulta, values);
 };
 
@@ -548,7 +545,7 @@ const eliminarItem = async (req, res) => {
   }
 };
 
-export const controller = {
+module.exports = {
   registrarUsuario,
   verificarCredenciales,
   getUsuarios,

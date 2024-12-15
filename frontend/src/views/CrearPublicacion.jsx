@@ -35,7 +35,7 @@ const CrearPublicacion = () => {
       console.log("Enviando la solicitud a la API");
       // Hacer la solicitud POST al backend, enviando el token en los headers
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/publicaciones`,nuevaPublicacion,
+        "http://localhost:3000/publicaciones",nuevaPublicacion,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Enviar el token JWT en los headers

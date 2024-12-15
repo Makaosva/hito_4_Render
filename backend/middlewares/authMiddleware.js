@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
-export const authMiddleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   const Authorization = req.header("Authorization");
-  console.log("autorization:", Authorization);
+  console.log("autorization:" ,Authorization  )
   if (!Authorization) {
     return res.status(401).json({ error: "No existe autorización" });
   }
@@ -21,3 +21,5 @@ export const authMiddleware = (req, res, next) => {
     return res.status(401).send({ error: "Token inválido" });
   }
 };
+
+module.exports = { authMiddleware };

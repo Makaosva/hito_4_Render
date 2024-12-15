@@ -11,7 +11,7 @@ const Buscador = () => {
   const fetchAllPublicaciones = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/publicaciones/buscar`
+        "http://localhost:3000/publicaciones/buscar"
       );
       setPublicaciones(response.data);
     } catch (error) {
@@ -25,7 +25,7 @@ const Buscador = () => {
         await fetchAllPublicaciones(); // Obtener todas las publicaciones si no hay término
       } else {
         const response = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/api/publicaciones/buscar`,
+          "http://localhost:3000/publicaciones/buscar",
           { params: { titulo: searchTerm } }
         );
         setPublicaciones(response.data);
