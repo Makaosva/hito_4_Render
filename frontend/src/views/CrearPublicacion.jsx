@@ -4,6 +4,8 @@ import MenuLateral from "../components/MenuLateral";
 import { UsuarioContext } from "../context/UsuarioContext";
 import axios from "axios"; // para ocupar la bd, se instala como dependencia
 
+const { VITE_API_URL } = import.meta.env;
+
 // VISTA FRONTEND SE DEBE ENVIAR DATOS FORMULARIO AL BACKEND
 const CrearPublicacion = () => {
   const { setActiveMenu } = useContext(UsuarioContext);
@@ -35,7 +37,7 @@ const CrearPublicacion = () => {
       console.log("Enviando la solicitud a la API");
       // Hacer la solicitud POST al backend, enviando el token en los headers
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/publicaciones`,nuevaPublicacion,
+        `${VITE_API_URL}/api/publicaciones`,nuevaPublicacion,
         {
           headers: {
             Authorization: `Bearer ${token}`, // Enviar el token JWT en los headers

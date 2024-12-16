@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"; // Importar el hook useNavigate
 import { FaPlus, FaMinus, FaTrashAlt } from "react-icons/fa"; // Íconos para incrementar y decrementar
 import { UsuarioContext } from "../context/UsuarioContext";
 
+const { VITE_API_URL } = import.meta.env;
+
 const Carrito = () => {
   const [boleta, setBoleta] = useState(null);
   const [items, setItems] = useState([]);
@@ -23,7 +25,7 @@ const Carrito = () => {
         }
 
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/obtenerBoletaItems`,
+          `${VITE_API_URL}/api/obtenerBoletaItems`,
           {
             method: "GET",
             headers: {
@@ -55,7 +57,7 @@ const Carrito = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/actualizarCantidad/${item_id}`,
+        `${VITE_API_URL}/api/actualizarCantidad/${item_id}`,
         {
           method: "PUT",
           headers: {
@@ -87,7 +89,7 @@ const Carrito = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/eliminarItem/${item_id}`,
+        `${VITE_API_URL}/api/eliminarItem/${item_id}`,
         {
           method: "DELETE",
           headers: {

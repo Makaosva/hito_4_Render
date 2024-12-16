@@ -5,6 +5,8 @@ import MenuLateral from "../components/MenuLateral";
 import { UsuarioContext } from "../context/UsuarioContext";
 import axios from "axios";
 
+const { VITE_API_URL } = import.meta.env;
+
 const DetallePublicacion = () => {
   const navigate = useNavigate();
   const { usuario } = useContext(UsuarioContext);
@@ -20,7 +22,7 @@ const DetallePublicacion = () => {
     const obtenerEmailPublicador = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/usuarios/email/${nombrePublicador}`
+          `${VITE_API_URL}/api/usuarios/email/${nombrePublicador}`
         );
         setEmailPublicador(response.data.email); // Guardar el email en el estado
         setCargando(false);

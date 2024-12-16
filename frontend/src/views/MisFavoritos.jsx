@@ -5,6 +5,8 @@ import { UsuarioContext } from "../context/UsuarioContext";
 import MenuLateral from "../components/MenuLateral";
 import axios from "axios";
 
+const { VITE_API_URL } = import.meta.env;
+
 const MisFavoritos = () => {
   const { setActiveMenu } = useContext(UsuarioContext);
   const { usuario } = useContext(UsuarioContext);
@@ -26,7 +28,7 @@ const MisFavoritos = () => {
       }
 
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/favoritos`,
+        const response = await axios.get(`${VITE_API_URL}/api/favoritos`,
           {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

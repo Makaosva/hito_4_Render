@@ -4,6 +4,8 @@ import { UsuarioContext } from "../context/UsuarioContext";
 import { FaSearch } from "react-icons/fa";
 import axios from "axios";
 
+const { VITE_API_URL } = import.meta.env;
+
 const Buscador = () => {
   const { setPublicaciones } = useContext(UsuarioContext);
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,7 +13,7 @@ const Buscador = () => {
   const fetchAllPublicaciones = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/publicaciones/buscar`
+        `${VITE_API_URL}/api/publicaciones/buscar`
       );
       setPublicaciones(response.data);
     } catch (error) {
@@ -25,7 +27,7 @@ const Buscador = () => {
         await fetchAllPublicaciones(); // Obtener todas las publicaciones si no hay término
       } else {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/publicaciones/buscar`,
+          `${VITE_API_URL}/api/publicaciones/buscar`,
           { params: { titulo: searchTerm } }
         );
         setPublicaciones(response.data);

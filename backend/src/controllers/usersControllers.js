@@ -10,9 +10,12 @@ const registrarUsuario = async (usuario) => {
   // Encriptar la contraseña
   const passwordEncriptada = bcrypt.hashSync(password); // para encriptar las contraseñas
   password = passwordEncriptada;
+  console.log("nombre-->", nombre);
+  console.log("email-->", email);
+  console.log("password-->", password);
   const values = [nombre, passwordEncriptada, email];
   const consulta =
-    "INSERT INTO usuarios (nombre,password, email) VALUES ($1, $2, $3)"; // se inserta los datos en la tabla usuarios
+    "INSERT INTO usuarios (nombre, password, email) VALUES ($1, $2, $3)"; // se inserta los datos en la tabla usuarios
   await pool.query(consulta, values);
 };
 

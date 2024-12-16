@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { UsuarioContext } from "../context/UsuarioContext";
 import axios from "axios";
 
+const { VITE_API_URL } = import.meta.env;
+
 const CardPublicacion = ({
   publicacion_id,
   imagen,
@@ -31,7 +33,7 @@ const CardPublicacion = ({
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/boletas/agregar/${publicacion_id}`,
+        `${VITE_API_URL}/api/boletas/agregar/${publicacion_id}`,
         {}, // No es necesario enviar datos en el cuerpo
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -70,7 +72,7 @@ const CardPublicacion = ({
 
     try {
       const response = await axios.post(
-            `${import.meta.env.VITE_API_URL}/api/favoritos/${publicacion_id}`,
+            `${VITE_API_URL}/api/favoritos/${publicacion_id}`,
             {},
             {
               headers: {

@@ -6,6 +6,8 @@ import MenuLateral from "../components/MenuLateral";
 import { UsuarioContext } from "../context/UsuarioContext";// para acceder al usuario actual
 import axios from "axios"; // para el backen
 
+const { VITE_API_URL } = import.meta.env;
+
 const Perfil = () => {
   const { setActiveMenu, setUsuario, logout } =
     useContext(UsuarioContext);
@@ -30,7 +32,7 @@ const Perfil = () => {
     //se ingresa al perfil despues del inicio de sesion con credenciales y autorizacion con token para backend
     try {
       //solicitud  get a usuarios, la variable data contiene el arreglo con los datos de los usuarios
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/usuarios`, {
+      const { data } = await axios.get(`${VITE_API_URL}/api/usuarios`, {
         // autorizacion con token
         headers: { Authorization: `Bearer ${token}` },
       });
